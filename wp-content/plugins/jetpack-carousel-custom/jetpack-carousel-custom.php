@@ -42,9 +42,9 @@ function my_jetpack_carousel_data( $data ) {
 add_action( 'wp_enqueue_scripts', 'my_enqueue_jetpack_carousel' );
 
 function my_enqueue_jetpack_carousel() {
-    // Enqueue the Swiper.js library and the Jetpack Carousel script
-    wp_enqueue_script( 'swiper' );
-    wp_enqueue_script( 'jetpack-carousel' );
+	// Enqueue the Swiper.js library and the Jetpack Carousel script
+	wp_enqueue_script( 'swiper' );
+	wp_enqueue_script( 'jetpack-carousel-swipe' );
 
     // Add a custom script that modifies the Jetpack Carousel behavior
     wp_enqueue_script( 'my-jetpack-carousel', plugin_dir_url( __FILE__ ) . 'my-jetpack-carousel.js', array( 'jetpack-carousel' ), '1.0', true );
