@@ -80,3 +80,6 @@ function wp_gpt_update_api_key(WP_REST_Request $request) {
     update_option('gpt_api_key', sanitize_text_field($api_key));
     return new WP_REST_Response(array('status' => 'success'), 200);
 }
+
+require_once plugin_dir_path(__FILE__) . 'social-quote.php';
+
