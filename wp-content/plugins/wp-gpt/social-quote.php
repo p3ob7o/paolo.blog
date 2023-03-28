@@ -30,3 +30,24 @@ function wp_gpt_social_quote_register_block() {
 }
 
 add_action('init', 'wp_gpt_social_quote_register_block');
+
+
+function social_quote_enqueue_editor_assets() {
+    $block_js = 'social-quote-editor.js';
+    $block_css = 'social-quote-editor.css';
+
+    wp_enqueue_script(
+        'wp-gpt-social-quote-editor',
+        plugins_url($block_js, __FILE__),
+        array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'),
+        filemtime(plugin_dir_path(__FILE__) . $block_js),
+        true
+    );
+
+    wp_enqueue_style(
+        'wp-gpt-social-quote-editor',
+        plugins_url($block_css, __FILE__),
+        array('wp-edit-blocks'),
+        filemtime(plugin_dir_path(__FILE__) . $block_css)
+    );
+}
