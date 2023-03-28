@@ -11,6 +11,6 @@ Author URI: https://paolo.blog
 add_filter( 'jetpack_carousel_options', 'my_jetpack_carousel_options' );
 
 function my_jetpack_carousel_options( $options ) {
-    $options['carousel_options']['single_image_nav'] = true;
+    $options['single_image_nav'] = true;
     return $options;
 }
