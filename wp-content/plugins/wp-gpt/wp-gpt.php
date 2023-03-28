@@ -1,9 +1,10 @@
 <?php
 /*
 Plugin Name: GPT for WordPress
-Description: A plugin that provides a settings page for the OpenAI API key, a proxy script to make GPT API calls, and the ability to register GPT-based blocks and features.
-Version: 1.0
-Author: Your Name
+Description: A sandbox to play with GPT-powered features in WordPress
+Version: 0.1
+Author: Paolo Belcastro
+License: GPL-3.0
 */
 
 function wp_gpt_admin_menu() {
