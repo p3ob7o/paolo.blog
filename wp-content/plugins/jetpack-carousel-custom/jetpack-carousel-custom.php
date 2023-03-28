@@ -8,63 +8,52 @@ Author: Paolo Belcastro
 Author URI: https://paolo.blog
 */
 
-// Add custom data to the Jetpack Carousel script
-add_filter( 'jetpack_carousel_data', 'my_jetpack_carousel_data' );
+// Add a custom class to all images on the page that should trigger the Jetpack Carousel in gallery mode when clicked
+add_filter( 'wp_get_attachment_link', 'my_add_custom_image_class', 10, 6 );
 
-function my_jetpack_carousel_data( $data ) {
-    // Find all images on the page
-    $images = get_posts( array(
-        'post_type'      => 'attachment',
-        'posts_per_page' => -1,
-        'post_mime_type' => 'image',
-        'post_status'    => 'inherit',
-        'fields'         => 'ids',
-    ) );
-
-    // Create an array of gallery data for all images on the page
-    $gallery_data = array();
-    foreach ( $images as $image ) {
-        $gallery_data[] = array(
-            'src'       => wp_get_attachment_url( $image ),
-            'title'     => get_the_title( $image ),
-            'caption'   => get_post_field( 'post_excerpt', $image ),
-            'mime_type' => get_post_mime_type( $image ),
-        );
-    }
-
-    // Add custom data to the Jetpack Carousel script
-    $data['gallery_data'] = $gallery_data;
-
-    return $data;
+function my_add_custom_image_class( $link, $id, $size, $permalink, $icon, $text ) {
+    $custom_class = 'my-gallery-link'; // Customize this class name as desired
+    $new_link = str_replace( '<a ', '<a class="' . $custom_class . '" ', $link );
+    return $new_link;
 }
 
-// Modify the Jetpack Carousel script to create a custom gallery
-add_action( 'wp_enqueue_scripts', 'my_enqueue_jetpack_carousel' );
+// Add a click event listener to all images with the custom class that opens the Jetpack Carousel in gallery mode with the corresponding images
+add_action( 'wp_footer', 'my_open_jetpack_carousel_gallery' );
 
-function my_enqueue_jetpack_carousel() {
-	// Enqueue the Swiper.js library and the Jetpack Carousel script
-	wp_enqueue_script( 'swiper' );
-	wp_enqueue_script( 'jetpack-carousel-swipe' );
+function my_open_jetpack_carousel_gallery() {
+    ?>
+    <script>
+        jQuery(document).ready(function($) {
+            $('body').on('click', 'a.my-gallery-link', function(e) {
+                e.preventDefault();
 
-    // Add a custom script that modifies the Jetpack Carousel behavior
-    wp_enqueue_script( 'my-jetpack-carousel', plugin_dir_url( __FILE__ ) . 'my-jetpack-carousel.js', array( 'jetpack-carousel' ), '1.0', true );
+                var gallery_data = [];
+
+                // Find all images with the custom class
+                var images = $('img.my-gallery-link');
+
+                // Create an array of gallery data for the images
+                images.each(function() {
+                    var link = $(this).parent('a');
+                    if ( link.length ) {
+                        gallery_data.push({
+                            src: link.attr('href'),
+                            title: '',
+                            caption: '',
+                            mime_type: 'image'
+                        });
+                    }
+                });
+
+                // Open the Jetpack Carousel in gallery mode with the corresponding images
+                $(document).trigger('click', {
+                    gallery: gallery_data,
+                    start: images.index(this),
+                    type: 'gallery'
+                });
+            });
+        });
+    </script>
+    <?php
 }
 
-// Add a click event listener to all images on the page that opens the custom gallery
-add_action( 'wp_footer', 'my_add_gallery_links' );
-
-function my_add_gallery_links() {
-    // Find all images on the page
-    $images = get_posts( array(
-        'post_type'      => 'attachment',
-        'posts_per_page' => -1,
-        'post_mime_type' => 'image',
-        'post_status'    => 'inherit',
-        'fields'         => 'ids',
-    ) );
-
-    // Add a click event listener to each image that opens the custom gallery
-    foreach ( $images as $image ) {
-        echo '<a href="' . wp_get_attachment_url( $image ) . '" class="my-gallery-link"></a>';
-    }
-}
