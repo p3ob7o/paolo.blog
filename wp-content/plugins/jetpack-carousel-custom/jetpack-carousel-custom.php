@@ -8,39 +8,38 @@ Author: Paolo Belcastro
 Author URI: https://paolo.blog
 */
 
-// Add custom data to the Jetpack Carousel script
-add_filter( 'jetpack_carousel_data', 'my_jetpack_carousel_data' );
+add_filter( 'the_content', 'my_add_carousel_links' );
 
-function my_jetpack_carousel_data( $data ) {
-    // Find all images on the page
-    $images = get_posts( array(
-        'post_type'      => 'attachment',
-        'posts_per_page' => -1,
-        'post_mime_type' => 'image',
-        'post_status'    => 'inherit',
-        'fields'         => 'ids',
-    ) );
+function my_add_carousel_links( $content ) {
+    // Find all image tags in the content
+    preg_match_all('/<img[^>]+>/i', $content, $matches);
+    $images = $matches[0];
 
-    // Create an array of gallery data for all images on the page
-    $gallery_data = array();
+    // Create an array of image URLs
+    $urls = array();
     foreach ( $images as $image ) {
-        $gallery_data[] = array(
-            'src'       => wp_get_attachment_url( $image ),
-            'title'     => get_the_title( $image ),
-            'caption'   => get_post_field( 'post_excerpt', $image ),
-            'mime_type' => get_post_mime_type( $image ),
-        );
+        preg_match('/src="([^"]*)"/i', $image, $url);
+        $urls[] = $url[1];
     }
 
-    // Add custom data to the Jetpack Carousel script
-    $data['gallery_data'] = $gallery_data;
+    // If there are no images, return the original content
+    if ( empty( $urls ) ) {
+        return $content;
+    }
 
-    return $data;
+    // Add links to open images in a Jetpack carousel
+    $links = array();
+    foreach ( $urls as $url ) {
+        $links[] = '<a href="' . $url . '" class="my-jetpack-carousel-link"></a>';
+    }
+    $content .= implode( '', $links );
+
+    return $content;
 }
 
-// Modify the Jetpack Carousel script to create a custom gallery
-add_action( 'wp_enqueue_scripts', 'my_enqueue_jetpack_carousel' );
+add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts' );
 
+<<<<<<< HEAD:wp-content/plugins/jetpack-carousel-custom/jetpack-carousel-custom-disabled.php
 function my_enqueue_jetpack_carousel() {
     // Enqueue the Jetpack Carousel script
     wp_enqueue_script( 'jetpack-carousel' );
@@ -80,3 +79,10 @@ function my_add_gallery_links() {
         echo '<a href="' . wp_get_attachment_url( $image ) . '" class="my-gallery-link"></a>';
     }
 }
+=======
+function my_enqueue_scripts() {
+    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'jetpack-carousel', 'https://s1.wp.com/wp-content/mu-plugins/jetpack/_inc/build/carousel/jetpack-carousel.min.js', array( 'jquery' ), JETPACK__VERSION );
+    wp_enqueue_script( 'my-jetpack-carousel', plugin_dir_url( __FILE__ ) . 'my-jetpack-carousel.js', array( 'jquery', 'jetpack-carousel' ), '1.0', true );
+}
+>>>>>>> parent of 2c85955 (New iteration, closer to how the carousel actually works):wp-content/plugins/jetpack-carousel-custom/jetpack-carousel-custom.php
