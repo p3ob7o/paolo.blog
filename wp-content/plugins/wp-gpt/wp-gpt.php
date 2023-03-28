@@ -38,7 +38,7 @@ function wp_gpt_settings_page() {
                 </tbody>
             </table>
             <p class="submit">
-                <button type="button" id="gpt4_save_api_key" class="button button-primary">Save API Key</button>
+                <button type="button" id="gpt_save_api_key" class="button button-primary">Save API Key</button>
             </p>
         </form>
     </div>
