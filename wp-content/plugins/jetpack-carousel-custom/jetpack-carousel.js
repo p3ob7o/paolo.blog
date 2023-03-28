@@ -56,3 +56,4 @@ jQuery(document).ready(function($) {
         $('.jetpack-carousel-wrap').fadeIn(200);
     });
 });
+
