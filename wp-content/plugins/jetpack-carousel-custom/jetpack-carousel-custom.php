@@ -62,4 +62,21 @@ function my_add_gallery_links() {
         'fields'         => 'ids',
     ) );
 
-    // Add a click event listener to
+// Add a click event listener to all images on the page that opens the custom gallery
+add_action( 'wp_footer', 'my_add_gallery_links' );
+
+function my_add_gallery_links() {
+    // Find all images on the page
+    $images = get_posts( array(
+        'post_type'      => 'attachment',
+        'posts_per_page' => -1,
+        'post_mime_type' => 'image',
+        'post_status'    => 'inherit',
+        'fields'         => 'ids',
+    ) );
+
+    // Add a click event listener to each image that opens the custom gallery
+    foreach ( $images as $image ) {
+        echo '<a href="' . wp_get_attachment_url( $image ) . '" class="my-gallery-link"></a>';
+    }
+}
