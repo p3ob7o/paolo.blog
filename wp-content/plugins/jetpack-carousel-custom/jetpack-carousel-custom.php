@@ -9,12 +9,12 @@ Author URI: https://paolo.blog
 */
 
 // Add a custom class to all images on the page that should trigger the Jetpack Carousel in gallery mode when clicked
-add_filter( 'the_content', 'my_add_custom_image_class' );
+add_filter( 'wp_get_attachment_link', 'my_add_custom_image_class', 10, 6 );
 
-function my_add_custom_image_class( $content ) {
+function my_add_custom_image_class( $link, $id, $size, $permalink, $icon, $text ) {
     $custom_class = 'my-gallery-link'; // Customize this class name as desired
-    $content = preg_replace( '/<a\s+([^>]*)class="([^"]*)wp-image-([^"]*)"([^>]*)>/i', '<a $1class="$2$custom_class $3"$4>', $content );
-    return $content;
+    $new_link = preg_replace( '/(?<=<a\s)(?=[^>]*class=".*wp-image-[^"]*"[^>]*>)/i', 'class="' . $custom_class . ' ', $link );
+    return $new_link;
 }
 
 // Add a click event listener to all images with the custom class that opens the Jetpack Carousel in gallery mode with the corresponding images
