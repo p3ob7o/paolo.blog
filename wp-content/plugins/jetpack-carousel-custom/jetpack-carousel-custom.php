@@ -14,6 +14,7 @@ add_filter( 'wp_get_attachment_link', 'my_add_custom_image_class', 10, 6 );
 function my_add_custom_image_class( $link, $id, $size, $permalink, $icon, $text ) {
     $custom_class = 'my-gallery-link'; // Customize this class name as desired
     $new_link = str_replace( '<a ', '<a class="' . $custom_class . ' ', $link );
+    $new_link = str_replace( 'single-image-gallery', '', $new_link ); // Remove the 'single-image-gallery' class from the link
     return $new_link;
 }
 
