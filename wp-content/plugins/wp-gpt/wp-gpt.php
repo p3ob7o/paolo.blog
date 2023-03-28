@@ -28,10 +28,10 @@ function wp_gpt_settings_page() {
                 <tbody>
                     <tr>
                         <th scope="row">
-                            <label for="gpt4_api_key">OpenAI API Key</label>
+                            <label for="gpt_api_key">OpenAI API Key</label>
                         </th>
                         <td>
-                            <input name="gpt4_api_key" type="text" id="gpt4_api_key" value="<?php echo esc_attr(get_option('gpt4_api_key', '')); ?>" class="regular-text">
+                            <input name="gpt_api_key" type="text" id="gpt_api_key" value="<?php echo esc_attr(get_option('gpt_api_key', '')); ?>" class="regular-text">
                         </td>
                     </tr>
                 </tbody>
@@ -75,7 +75,7 @@ function wp_gpt_register_rest_routes() {
 add_action('rest_api_init', 'wp_gpt_register_rest_routes');
 
 function wp_gpt_update_api_key(WP_REST_Request $request) {
-    $api_key = $request->get_param('gpt4_api_key');
-    update_option('gpt4_api_key', sanitize_text_field($api_key));
+    $api_key = $request->get_param('gpt_api_key');
+    update_option('gpt_api_key', sanitize_text_field($api_key));
     return new WP_REST_Response(array('status' => 'success'), 200);
 }
