@@ -13,14 +13,46 @@ jQuery(document).ready(function($) {
                 src: $(this).attr('href'),
                 title: '',
                 caption: '',
-                mime_type: 'image'
+                type: 'image'
             });
         });
 
         // Open the custom Jetpack Carousel gallery
-        $(document).trigger('click', {
-            gallery: galleryData,
-            start: links.index(this)
+        var gallery = new Swiper('.swiper-container', {
+            init: false,
+            loop: true,
+            grabCursor: true,
+            keyboard: true,
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'bullets',
+                clickable: true
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            zoom: {
+                enabled: true,
+            },
+            autoplay: {
+                delay: 5000,
+            },
+            on: {
+                init: function() {
+                    this.slideTo(links.index($('a.my-gallery-link[href="' + window.location.hash + '"]')));
+                },
+            },
         });
+        gallery.init();
+        gallery.removeAllSlides();
+        gallery.appendSlide(galleryData);
+        gallery.update();
+
+        // Open the first slide
+        gallery.slideTo(0, 0);
+        $('body').addClass('jetpack-carousel');
+        $('html').addClass('jetpack-carousel');
+        $('.jetpack-carousel-wrap').fadeIn(200);
     });
 });
