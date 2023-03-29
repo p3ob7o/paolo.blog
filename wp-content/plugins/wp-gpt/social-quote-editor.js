@@ -1,11 +1,10 @@
 const { registerBlockType } = wp.blocks;
 const { __ } = wp.i18n;
 const { InnerBlocks, useBlockProps } = wp.blockEditor;
-const { createElement, useEffect } = wp.element;
-const { useState } = wp.react;
+const { createElement, useState, useEffect } = wp.element;
 const { TextControl, Button } = wp.components;
 const { useSelect } = wp.data;
-const { apiFetch } = wp;
+const { apiFetch } = wp.apiFetch;
 
 
 
