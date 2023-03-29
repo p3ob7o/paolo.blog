@@ -2,6 +2,7 @@ const { registerBlockType } = wp.blocks;
 const { __ } = wp.i18n;
 const { InnerBlocks, useBlockProps } = wp.blockEditor;
 const { createElement } = wp.element;
+const { useState } = wp.element;
 
 registerBlockType('wp-gpt/social-quote', {
     title: __('Social Quote', 'wp-gpt'),
