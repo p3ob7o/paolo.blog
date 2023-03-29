@@ -12,6 +12,7 @@ registerBlockType('wp-gpt/social-quote', {
         html: false,
     },
     edit() {
+    try {
     const [quote, setQuote] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -72,6 +73,9 @@ registerBlockType('wp-gpt/social-quote', {
             ])
         )
     );
+     } catch (error) {
+        console.error('Error in Social Quote block:', error);
+    }
 },
     save() {
         const blockProps = useBlockProps.save();
