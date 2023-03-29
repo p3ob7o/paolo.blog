@@ -4,7 +4,7 @@ const { InnerBlocks, useBlockProps } = wp.blockEditor;
 const { createElement, useState, useEffect } = wp.element;
 const { TextControl, Button } = wp.components;
 const { useSelect } = wp.data;
-const { apiFetch } = wp.apiFetch;
+const apiFetch = wp.apiFetch || wp.api.apiFetch;
 
 
 
