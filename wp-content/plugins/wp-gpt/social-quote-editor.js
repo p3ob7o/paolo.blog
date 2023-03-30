@@ -44,7 +44,7 @@ const EditSocialQuote = (props) => {
     		prompt: "As a social content expert creator, extract the best quote from the provided text. 'Best quote' means the one more likely to drive readers to want to read the content if they were to see the quote on Twitter. Limit the quote to 200 characters maximum",
 			context: content,
 		  },
-		})
+		)
 
         .then((data) => {
           setLoading(false);
