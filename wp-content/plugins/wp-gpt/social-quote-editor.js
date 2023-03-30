@@ -63,12 +63,16 @@ const EditSocialQuote = (props) => {
 		});
 	}, [content]);
 
-	function tweetQuote() {
+	async function tweetQuote() {
 	  if (!quote) {
 		return;
 	  }
 
-	  const permalink = wp.data.select('core/editor').getPermalink();
+	  const postId = wp.data.select('core/editor').getCurrentPostId();
+	  const response = await fetch(`/wp-json/wp/v2/posts/${postId}`);
+	  const post = await response.json();
+	  const permalink = post.link;
+
 	  const tweetContent = `${quote}\n${permalink}`;
 	  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
 	  window.open(tweetUrl, '_blank');
