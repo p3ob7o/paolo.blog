@@ -108,7 +108,9 @@ save: () => {
   return createElement(
     'div',
     { className: 'wp-block-wp-gpt-social-quote' },
-    createElement(InnerBlocks.Content)
+createElement('div', { className: 'wp-block-wp-gpt-social-quote' }, [
+  createElement('p', {}, quote),
+])
   );
 },
 });
