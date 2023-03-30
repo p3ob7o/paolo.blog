@@ -51,8 +51,9 @@ const EditSocialQuote = (props) => {
 		return;
 	  }
 	  setLoading(false);
-	  setQuote(data.choices[0].text.trim());
-	})
+		const assistantMessage = data.choices[0].message.content;
+		setQuote(assistantMessage.trim());
+		})
 		.catch((error) => {
 		  console.error('Fetch error:', error);
 		  setLoading(false);
