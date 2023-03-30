@@ -43,11 +43,16 @@ const EditSocialQuote = (props) => {
 		}),
 	  })
 		.then((response) => response.json())
-		.then((data) => {
-		  console.log('Data received:', data);
-		  setLoading(false);
-		  setQuote(data.choices[0].text.trim());
-		})
+	.then((data) => {
+	  console.log('Data received:', data);
+	  if (!data.choices || data.choices.length === 0) {
+		console.error('No choices found in the response data');
+		setLoading(false);
+		return;
+	  }
+	  setLoading(false);
+	  setQuote(data.choices[0].text.trim());
+	})
 		.catch((error) => {
 		  console.error('Fetch error:', error);
 		  setLoading(false);
