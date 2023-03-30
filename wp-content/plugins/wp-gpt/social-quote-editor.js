@@ -85,7 +85,7 @@ const EditSocialQuote = (props) => {
         createElement(Spinner)
       ) : (
         createElement('div', { className: 'wp-gpt-social-quote' }, [
-          createElement('p', {}, quote + '\n' + post.link),
+          createElement('p', {}, quote + '\n' + permalink),
           createElement(Button, { isSecondary: true, onClick: tweetQuote }, 'Tweet this'),
         ])
       )
