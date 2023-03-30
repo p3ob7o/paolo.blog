@@ -83,3 +83,13 @@ function wp_gpt_update_api_key(WP_REST_Request $request) {
 
 require_once plugin_dir_path(__FILE__) . 'social-quote.php';
 
+function wp_gpt_enqueue_block_assets() {
+  wp_enqueue_style(
+    'wp-gpt-social-quote-style',
+    plugins_url('social-quote-style.css', __FILE__),
+    array(),
+    filemtime(plugin_dir_path(__FILE__) . 'social-quote-style.css')
+  );
+}
+add_action('enqueue_block_assets', 'wp_gpt_enqueue_block_assets');
+
