@@ -32,9 +32,6 @@ const EditSocialQuote = (props) => {
 
       setLoading(true);
 
-		const path = addQueryArgs('/wp-gpt/proxy.php', {});
-		console.log('Generated path:', path);
-
 	fetch('/wp-content/plugins/wp-gpt/proxy.php', {
 	  method: 'POST',
 	  headers: {
