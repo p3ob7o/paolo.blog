@@ -90,16 +90,12 @@ function wp_gpt_enqueue_block_assets() {
     array(),
     filemtime(plugin_dir_path(__FILE__) . 'social-quote-style.css')
   );
+  
+  wp_enqueue_style(
+    'wp-gpt-style',
+    plugins_url('style.css', __FILE__),
+    array(),
+    filemtime(plugin_dir_path(__FILE__) . 'style.css')
+  );
 }
 add_action('enqueue_block_assets', 'wp_gpt_enqueue_block_assets');
-
-function wp_gpt_enqueue_assets() {
-    wp_enqueue_style(
-        'wp-gpt-social-quote-style',
-        plugins_url( 'style.css', __FILE__ ),
-        array(),
-        filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
-    );
-}
-add_action( 'enqueue_block_assets', 'wp_gpt_enqueue_assets' );
-
