@@ -18,7 +18,7 @@ if (!$api_key) {
     exit;
 }
 
-$api_url = 'https://api.openai.com/v1/completions';
+$api_url = 'https://api.openai.com/v1/chat/completions';
 
 $headers = [
     'Content-Type: application/json',
@@ -29,11 +29,22 @@ $post_data = file_get_contents('php://input');
 $json_data = json_decode($post_data, true);
 $openai_data = array(
     'model' => 'gpt-4',
-    'prompt' => $json_data['prompt'] . "\n" . $json_data['context'],
+    'messages' => [
+        [
+            'role' => 'system',
+            'content' => 'You are a helpful assistant that suggests the best quote from a given text to share on Twitter.',
+        ],
+        [
+            'role' => 'user',
+            'content' => $json_data['prompt'],
+        ],
+        [
+            'role' => 'assistant',
+            'content' => $json_data['context'],
+        ],
+    ],
     'max_tokens' => 200,
     'temperature' => 0.8,
-    'n' => 1,
-    'stop' => null,
 );
 
 $ch = curl_init($api_url);
