@@ -25,32 +25,34 @@ const EditSocialQuote = (props) => {
       return contentBlocks.map((block) => block.originalContent).join('\n');
     }, []);
 
-    useEffect(() => {
-      if (!content) {
-        return;
-      }
+	useEffect(() => {
+	  if (!content) {
+		return;
+	  }
 
-      setLoading(true);
+	  setLoading(true);
 
-	fetch('/wp-content/plugins/wp-gpt/proxy.php', {
-	  method: 'POST',
-	  headers: {
-		'Content-Type': 'application/json',
-	  },
-	  body: JSON.stringify({
-		prompt: "As a social content expert creator, extract the best quote from the provided text. 'Best quote' means the one more likely to drive readers to want to read the content if they were to see the quote on Twitter. Limit the quote to 200 characters maximum",
-		context: content,
-	  }),
-	})
-	  .then((response) => response.json())
-	  .then((data) => {
-		setLoading(false);
-		setQuote(data.choices[0].text.trim());
+	  fetch('/wp-content/plugins/wp-gpt/proxy.php', {
+		method: 'POST',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+		  prompt: "As a social content expert creator, extract the best quote from the provided text. 'Best quote' means the one more likely to drive readers to want to read the content if they were to see the quote on Twitter. Limit the quote to 200 characters maximum",
+		  context: content,
+		}),
 	  })
-	  .catch(() => {
-		setLoading(false);
-	  });
-    }, [content]);
+		.then((response) => response.json())
+		.then((data) => {
+		  console.log('Data received:', data);
+		  setLoading(false);
+		  setQuote(data.choices[0].text.trim());
+		})
+		.catch((error) => {
+		  console.error('Fetch error:', error);
+		  setLoading(false);
+		});
+	}, [content]);
 
     function tweetQuote() {
       if (!quote) {
