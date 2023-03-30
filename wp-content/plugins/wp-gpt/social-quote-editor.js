@@ -32,13 +32,16 @@ const EditSocialQuote = (props) => {
 
 	  setLoading(true);
 
+	  const path = addQueryArgs('/wp-gpt/proxy.php', {});
+	  console.log('Generated path:', path);
+
 	  fetch('/wp-content/plugins/wp-gpt/proxy.php', {
 		method: 'POST',
 		headers: {
 		  'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
-		  prompt: "As a social content expert creator, extract the best quote from the provided text. 'Best quote' means the one more likely to drive readers to want to read the content if they were to see the quote on Twitter. Limit the quote to 200 characters maximum",
+		  prompt: "As a social content expert creator, extract the best quote from the provided text. 'Best quote' means the one more likely to drive readers to want to read the content if they were to see the quote on Twitter. Limit the quote to 200 characters maximum, and avoid using hashtags",
 		  context: content,
 		}),
 	  })
@@ -60,15 +63,17 @@ const EditSocialQuote = (props) => {
 		});
 	}, [content]);
 
-    function tweetQuote() {
-      if (!quote) {
-        return;
-      }
+	function tweetQuote() {
+	  if (!quote) {
+		return;
+	  }
 
-      const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quote)}`;
-      window.open(tweetUrl, '_blank');
-    }
-
+	  const permalink = wp.data.select('core/editor').getPermalink();
+	  const tweetContent = `${quote}\n${permalink}`;
+	  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
+	  window.open(tweetUrl, '_blank');
+	}
+	
     return createElement(
       'div',
       blockProps,
