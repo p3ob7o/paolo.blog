@@ -35,11 +35,13 @@ const EditSocialQuote = (props) => {
 		const path = addQueryArgs('/wp-gpt/proxy.php', {});
 		console.log('Generated path:', path);
 
-		apiFetch({
-		  path: path,
-		  method: 'POST',
-		  data: {
-			prompt: "As a social content expert creator, extract the best quote from the provided text. 'Best quote' means the one more likely to drive readers to want to read the content if they were to see the quote on Twitter. Limit the quote to 200 characters maximum",
+		fetch('/wp-content/plugins/wp-gpt/proxy.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		body: JSON.stringify({
+    		prompt: "As a social content expert creator, extract the best quote from the provided text. 'Best quote' means the one more likely to drive readers to want to read the content if they were to see the quote on Twitter. Limit the quote to 200 characters maximum",
 			context: content,
 		  },
 		})
