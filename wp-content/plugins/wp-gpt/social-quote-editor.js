@@ -32,14 +32,18 @@ const EditSocialQuote = (props) => {
 
       setLoading(true);
 
+		const path = addQueryArgs('/wp-gpt/proxy.php', {});
+		console.log('Generated path:', path);
+
 		apiFetch({
-		  path: addQueryArgs('/wp-gpt/proxy.php', {}),
+		  path: path,
 		  method: 'POST',
 		  data: {
 			prompt: "As a social content expert creator, extract the best quote from the provided text. 'Best quote' means the one more likely to drive readers to want to read the content if they were to see the quote on Twitter. Limit the quote to 200 characters maximum",
 			context: content,
 		  },
 		})
+
         .then((data) => {
           setLoading(false);
           setQuote(data.choices[0].text.trim());
