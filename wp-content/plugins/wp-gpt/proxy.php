@@ -18,7 +18,7 @@ if (!$api_key) {
     exit;
 }
 
-$api_url = 'https://api.openai.com/v1/models/gpt-4/completions';
+$api_url = 'https://api.openai.com/v1/completions';
 
 $headers = [
     'Content-Type: application/json',
@@ -26,11 +26,22 @@ $headers = [
 ];
 
 $post_data = file_get_contents('php://input');
+$json_data = json_decode($post_data, true);
+$openai_data = array(
+    'model' => 'gpt-4',
+    'prompt' => $json_data['prompt'],
+    'context' => $json_data['context'],
+    'max_tokens' => 200,
+    'temperature' => 0.8,
+    'n' => 1,
+    'stop' => null,
+);
+
 $ch = curl_init($api_url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($openai_data));
 
 $response = curl_exec($ch);
 curl_close($ch);
