@@ -104,6 +104,12 @@ registerBlockType('wp-gpt/social-quote', {
     html: false,
   },
   edit: EditSocialQuote,
+  attributes: {
+  quote: {
+    type: 'string',
+    default: '',
+  		},
+	},
 save: () => {
   return createElement(
     'div',
