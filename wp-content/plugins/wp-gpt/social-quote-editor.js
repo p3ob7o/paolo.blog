@@ -104,21 +104,11 @@ registerBlockType('wp-gpt/social-quote', {
     html: false,
   },
   edit: EditSocialQuote,
-save: ({ attributes }) => {
-  return createElement(
-    'div',
-    { className: 'wp-gpt-social-quote' },
-    [
-      createElement('blockquote', {}, attributes.quote),
-      createElement(Button, {
-        isSecondary: true,
-        onClick: () => {
-          const tweetContent = `${attributes.quote}`;
-          const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
-          window.open(tweetUrl, '_blank');
-        },
-      }, 'Tweet this'),
-    ]
-  );
+save: (props) => {
+    return (
+        <div>
+            <RichText.Content tagName="blockquote" value={props.attributes.quote} />
+        </div>
+    );
 },
 });

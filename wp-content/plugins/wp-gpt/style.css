@@ -1,3 +1,34 @@
 .wp-gpt-social-quote p {
     color: black;
 }
+
+.wp-gpt-social-quote blockquote {
+    background-color: #f5f8fa;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    max-width: 500px;
+    padding: 16px;
+    margin: 10px 0;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    position: relative;
+}
+
+.wp-gpt-social-quote blockquote:before {
+    content: '';
+    display: block;
+    background-image: url('https://abs.twimg.com/favicons/twitter.ico');
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    left: 16px;
+    top: 16px;
+}
+
+.wp-gpt-social-quote blockquote p {
+    padding-left: 40px;
+    margin-bottom: 16px;
+}
