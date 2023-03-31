@@ -80,11 +80,11 @@ registerBlockType('wp-gpt/social-quote', {
         );
     },
 
-    save: (props) => {
-        return (
-            <div>
-                <RichText.Content tagName="blockquote" value={props.attributes.quote} />
-            </div>
-        );
-    },
+	save: (props) => {
+	  return (
+		<div className={props.className}>
+		  <blockquote>{props.attributes.quote}</blockquote>
+		</div>
+	  );
+	},
 });
