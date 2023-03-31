@@ -107,8 +107,18 @@ registerBlockType('wp-gpt/social-quote', {
 save: ({ attributes }) => {
   return createElement(
     'div',
-    { className: 'wp-block-wp-gpt-social-quote' },
-    createElement('blockquote', {}, attributes.quote)
+    { className: 'wp-gpt-social-quote' },
+    [
+      createElement('blockquote', {}, attributes.quote),
+      createElement(Button, {
+        isSecondary: true,
+        onClick: () => {
+          const tweetContent = `${attributes.quote}`;
+          const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
+          window.open(tweetUrl, '_blank');
+        },
+      }, 'Tweet this'),
+    ]
   );
 },
 });

@@ -99,3 +99,15 @@ function wp_gpt_enqueue_block_assets() {
   );
 }
 add_action('enqueue_block_assets', 'wp_gpt_enqueue_block_assets');
+
+function wp_gpt_enqueue_frontend_scripts() {
+  wp_enqueue_script(
+    'wp-gpt-frontend-script',
+    plugins_url('frontend-script.js', __FILE__),
+    array(),
+    filemtime(plugin_dir_path(__FILE__) . 'frontend-script.js'),
+    true
+  );
+}
+add_action('wp_enqueue_scripts', 'wp_gpt_enqueue_frontend_scripts');
+
