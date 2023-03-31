@@ -104,11 +104,11 @@ registerBlockType('wp-gpt/social-quote', {
     html: false,
   },
   edit: EditSocialQuote,
-save: () => {
+save: ({ attributes }) => {
   return createElement(
     'div',
     { className: 'wp-block-wp-gpt-social-quote' },
-    createElement(InnerBlocks.Content)
+    createElement('blockquote', {}, attributes.quote)
   );
 },
 });
