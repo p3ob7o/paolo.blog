@@ -80,11 +80,13 @@ registerBlockType('wp-gpt/social-quote', {
         );
     },
 
-	save: (props) => {
-	  return (
-		<div className={props.className}>
-		  <blockquote>{props.attributes.quote}</blockquote>
-		</div>
-	  );
-	},
+save: (props) => {
+    return (
+        <div className="wp-gpt-social-quote">
+            <blockquote className="wp-gpt-social-quote">
+                {props.attributes.quote}
+            </blockquote>
+        </div>
+    );
+},
 });
