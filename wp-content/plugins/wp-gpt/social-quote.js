@@ -86,7 +86,9 @@ const { useBlockProps } = wp.blockEditor;
 save: (props) => {
     return (
         <div className="wp-gpt-social-quote">
-            <blockquote>{props.attributes.quote}</blockquote>
+            <blockquote>
+                <p>{props.attributes.quote}</p>
+            </blockquote>
         </div>
     );
 },
