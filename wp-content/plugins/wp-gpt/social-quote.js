@@ -84,12 +84,9 @@ registerBlockType('wp-gpt/social-quote', {
 const { useBlockProps } = wp.blockEditor;
 
 save: (props) => {
-    const blockProps = useBlockProps.save();
     return (
-        <div {...blockProps} className="wp-gpt-social-quote">
-            <blockquote className="wp-gpt-social-quote">
-                {props.attributes.quote}
-            </blockquote>
+        <div className="wp-gpt-social-quote">
+            <blockquote>{props.attributes.quote}</blockquote>
         </div>
     );
 },
