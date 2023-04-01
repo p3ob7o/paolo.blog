@@ -95,38 +95,27 @@ const EditSocialQuote = (props) => {
   }
 };
 
-registerBlockType('wp-gpt/social-quote', {
-  apiVersion: 2,
-  title: __('Social Quote', 'wp-gpt'),
-  icon: 'twitter',
-  category: 'widgets',
-  supports: {
-    html: false,
-  },
-  edit: EditSocialQuote,
-save: function ({ attributes }) {
-    return wp.element.createElement(
-        'blockquote',
-        null,
-        [
-            wp.element.createElement(
-                'p',
-                null,
-                attributes.quote
-            ),
-            wp.element.createElement(
-                'footer',
-                null,
-                [
-                    wp.element.createElement(
-                        'cite',
-                        null,
-                        '— ' + attributes.author
-                    )
-                ]
-            )
-        ]
+register_block_type('wp-gpt/social-quote', array(
+    'editor_script' => 'wp-gpt-social-quote-editor',
+    'editor_style' => 'wp-gpt-social-quote-editor',
+    'style' => 'wp-gpt-social-quote',
+    'render_callback' => 'wp_gpt_social_quote_render_callback',
+));
+
+function wp_gpt_social_quote_render_callback($attributes) {
+    if (!isset($attributes['quote']) || !isset($attributes['author'])) {
+        return '';
+    }
+
+    $quote = $attributes['quote'];
+    $author = $attributes['author'];
+
+    return sprintf(
+        '<blockquote class="wp-gpt-social-quote"><p>%1$s</p><footer><cite>— %2$s</cite></footer></blockquote>',
+        esc_html($quote),
+        esc_html($author)
     );
-},
+}
+
 
 });
