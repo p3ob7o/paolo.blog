@@ -91,3 +91,14 @@ save: (props) => {
     );
 },
 });
+
+function wp_gpt_enqueue_block_frontend_assets() {
+    wp_enqueue_style(
+        'wp-gpt-social-quote-frontend',
+        plugins_url('social-quote-style.css', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . 'social-quote-style.css')
+    );
+}
+add_action('wp_enqueue_scripts', 'wp_gpt_enqueue_block_frontend_assets');
+
