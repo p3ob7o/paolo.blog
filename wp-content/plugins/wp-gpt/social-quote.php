@@ -1,5 +1,30 @@
 <?php
 
+function wp_gpt_social_quote_render_callback($attributes, $content) {
+    $quote = isset($attributes['quote']) ? $attributes['quote'] : '';
+    $author = isset($attributes['author']) ? $attributes['author'] : '';
+
+    if (!$quote || !$author) {
+        return '';
+    }
+
+    $tweet_text = urlencode('"' . $quote . '" - ' . $author);
+    $tweet_url = 'https://twitter.com/intent/tweet?text=' . $tweet_text;
+
+    return sprintf(
+        '<blockquote class="wp-gpt-social-quote">
+            <p>%1$s</p>
+            <footer>
+                — <cite>%2$s</cite>
+                <a href="%3$s" target="_blank" rel="noopener noreferrer" class="wp-gpt-tweet-this">Tweet This</a>
+            </footer>
+        </blockquote>',
+        esc_html($quote),
+        esc_html($author),
+        esc_url($tweet_url)
+    );
+}
+
 function wp_gpt_social_quote_register_block() {
     wp_register_script(
         'wp-gpt-social-quote-editor',
@@ -29,9 +54,8 @@ function wp_gpt_social_quote_register_block() {
         'editor_script' => 'wp-gpt-social-quote-editor',
         'editor_style' => 'wp-gpt-social-quote-editor',
         'style' => 'wp-gpt-social-quote',
+        'render_callback' => 'wp_gpt_social_quote_render_callback',
     ));
-
-    error_log('Social Quote Block registered.'); // Add this line for debugging
 }
 
 add_action('init', 'wp_gpt_social_quote_register_block');
