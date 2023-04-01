@@ -104,14 +104,28 @@ registerBlockType('wp-gpt/social-quote', {
     html: false,
   },
   edit: EditSocialQuote,
-save: ({ attributes }) => {
-    return (
-        <blockquote>
-            <p>{attributes.quote}</p>
-            <footer>
-                — <cite>{attributes.author}</cite>
-            </footer>
-        </blockquote>
+save: function ({ attributes }) {
+    return wp.element.createElement(
+        'blockquote',
+        null,
+        [
+            wp.element.createElement(
+                'p',
+                null,
+                attributes.quote
+            ),
+            wp.element.createElement(
+                'footer',
+                null,
+                [
+                    wp.element.createElement(
+                        'cite',
+                        null,
+                        '— ' + attributes.author
+                    )
+                ]
+            )
+        ]
     );
 },
 
