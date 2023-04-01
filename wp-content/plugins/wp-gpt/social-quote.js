@@ -67,18 +67,23 @@ registerBlockType('wp-gpt/social-quote', {
 		};
 
 		return (
-			<div className={props.className}>
-				<blockquote>{attributes.quote}</blockquote>
-				{isLoading ? (
-					<p>Loading...</p>
-				) : (
-					<Button isPrimary onClick={tweetQuote}>
-						Tweet this
-					</Button>
-				)}
-			</div>
-		);
-	},
+        <div className={props.className}>
+            <RichText
+                key="editable"
+                tagName="blockquote"
+                value={attributes.quote}
+                onChange={(newQuote) => setAttributes({ quote: newQuote })}
+            />
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : (
+                <Button isPrimary onClick={tweetQuote}>
+                    Tweet this
+                </Button>
+            )}
+        </div>
+    );
+},
 
 
 const { useBlockProps } = wp.blockEditor;

@@ -22,7 +22,10 @@ function wp_gpt_social_quote_register_block() {
         filemtime(plugin_dir_path(__FILE__) . 'social-quote.css')
     );
 
-register_block_type('wp-gpt/social-quote', array(
+    // Add this line to set the pluginDirUrl global variable
+    wp_localize_script('wp-gpt-social-quote-editor', 'pluginDirUrl', plugin_dir_url(__FILE__));
+
+    register_block_type('wp-gpt/social-quote', array(
         'editor_script' => 'wp-gpt-social-quote-editor',
         'editor_style' => 'wp-gpt-social-quote-editor',
         'style' => 'wp-gpt-social-quote',
