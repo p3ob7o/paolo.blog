@@ -54,22 +54,23 @@ function wp_gpt_social_quote_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'wp_gpt_social_quote_enqueue_scripts');
 
 function wp_gpt_social_quote_render_callback($attributes, $content) {
-    $dom = new DOMDocument();
-    @$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-    $quote_div = $dom->getElementsByTagName('div')->item(0);
-    $quote = $quote_div->getAttribute('data-quote');
+    if (!isset($attributes['quote'])) {
+        $dom = new DOMDocument();
+        @$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+        $blockquotes = $dom->getElementsByTagName('blockquote');
 
-    if (empty($quote)) {
-        return '';
+        if ($blockquotes->length > 0) {
+            $quote = $blockquotes->item(0)->getAttribute('data-quote');
+        } else {
+            return '';
+        }
+    } else {
+        $quote = $attributes['quote'];
     }
 
-    $quote_html = sprintf('<p>%1$s</p>', esc_html($quote));
-    $twitter_button_html = '<div class="wp-gpt-social-quote__button"><a href="https://twitter.com/intent/tweet?text=' . urlencode($quote) . '" target="_blank" rel="noopener noreferrer"><span class="dashicons dashicons-twitter"></span></a></div>';
-
     return sprintf(
-        '<blockquote class="wp-gpt-social-quote">%1$s%2$s</blockquote>',
-        $quote_html,
-        $twitter_button_html
+        '<blockquote class="wp-gpt-social-quote"><p>%1$s</p></blockquote>',
+        esc_html($quote)
     );
 }
 
