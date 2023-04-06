@@ -109,8 +109,7 @@ registerBlockType("wp-gpt/social-quote", {
 
 		return wp.element.createElement(
 			'div',
-			{ 'data-quote': quote },
-			// The content here will be replaced by the render_callback function
+			{ 'data-quote': quote }
 		);
 	},
 });
