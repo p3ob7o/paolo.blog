@@ -54,14 +54,23 @@ function wp_gpt_social_quote_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'wp_gpt_social_quote_enqueue_scripts');
 
-function wp_gpt_social_quote_render_callback($attributes) {
-    error_log("Attributes in render_callback: " . print_r($attributes, true)); // Add this line
+function wp_gpt_social_quote_render_callback($attributes, $content) {
+    $dom = new DOMDocument();
+    @$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+    $blockquotes = $dom->getElementsByTagName('blockquote');
 
-    if (!isset($attributes['quote'])) {
+    if ($blockquotes->length > 0) {
+        $dataAttributes = $blockquotes->item(0)->getAttribute('data-attributes');
+        $decodedAttributes = json_decode($dataAttributes, true);
+
+        if (isset($decodedAttributes['quote'])) {
+            $quote = $decodedAttributes['quote'];
+        } else {
+            return '';
+        }
+    } else {
         return '';
     }
-
-    $quote = $attributes['quote'];
 
     return sprintf(
         '<blockquote class="wp-gpt-social-quote"><p>%1$s</p></blockquote>',
