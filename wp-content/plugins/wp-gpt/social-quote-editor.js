@@ -104,7 +104,21 @@ registerBlockType("wp-gpt/social-quote", {
         html: false,
     },
     edit: EditSocialQuote,
-	save: () => {
-	  return null;
+	save: function (props) {
+		var attributes = props.attributes;
+		var quote = attributes.quote;
+
+		return wp.element.createElement(
+			'blockquote',
+			{
+				'data-quote': quote,
+				className: 'wp-gpt-social-quote'
+			},
+			wp.element.createElement(
+				'p',
+				null,
+				quote
+			)
+		);
 	},
 });
