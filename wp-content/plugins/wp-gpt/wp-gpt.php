@@ -7,6 +7,8 @@ Author: Paolo Belcastro
 License: GPL-3.0
 */
 
+require_once plugin_dir_path(__FILE__) . 'social-quote.php';
+
 function wp_gpt_admin_menu() {
     add_options_page(
         'GPT for WordPress Settings',
