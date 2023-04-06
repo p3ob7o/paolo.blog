@@ -67,3 +67,19 @@ function wp_gpt_social_quote_render_callback($attributes) {
         esc_html($quote)
     );
 }
+
+function wp_gpt_social_quote_dynamic_block($block_content, $block) {
+    if ($block['blockName'] === 'wp-gpt/social-quote') {
+        error_log("Rendering the social quote block (dynamic block filter)");
+        $quote = $block['attrs']['quote'] ?? '';
+        return sprintf(
+            '<blockquote class="wp-gpt-social-quote"><p>%1$s</p></blockquote>',
+            esc_html($quote)
+        );
+    }
+
+    return $block_content;
+}
+
+add_filter('render_block', 'wp_gpt_social_quote_dynamic_block', 10, 2);
+
