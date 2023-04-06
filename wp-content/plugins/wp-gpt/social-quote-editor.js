@@ -105,10 +105,8 @@ registerBlockType("wp-gpt/social-quote", {
     },
     edit: EditSocialQuote,
 	save: ({ attributes }) => {
-		// Render the block for the frontend by calling the render_callback function
-		const blockProps = useBlockProps.save();
 		return (
-			<div {...blockProps} data-quote={attributes.quote}>
+			<div data-quote={attributes.quote}>
 				{/* The content here will be replaced by the render_callback function */}
 			</div>
 		);
