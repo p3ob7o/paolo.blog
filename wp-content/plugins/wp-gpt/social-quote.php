@@ -30,6 +30,7 @@ function wp_gpt_social_quote_register_block() {
 		),
 	));
 }
+
 add_action('init', 'wp_gpt_social_quote_register_block');
 
 function wp_gpt_social_quote_enqueue_styles() {
@@ -54,6 +55,8 @@ function wp_gpt_social_quote_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'wp_gpt_social_quote_enqueue_scripts');
 
 function wp_gpt_social_quote_render_callback($attributes) {
+    error_log("Attributes in render_callback: " . print_r($attributes, true)); // Add this line
+
     if (!isset($attributes['quote'])) {
         return '';
     }
