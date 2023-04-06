@@ -18,16 +18,17 @@ function wp_gpt_social_quote_register_block() {
         array()
     );
 
-    register_block_type('wp-gpt/social-quote', array(
-        'editor_script' => 'wp-gpt-social-quote-editor',
-        'editor_style' => 'wp-gpt-social-quote-editor',
-        'style' => 'wp-gpt-social-quote',
-        'attributes' => array(
-            'quote' => array(
-                'type' => 'string',
-            ),
-        ),
-    ));
+	register_block_type('wp-gpt/social-quote', array(
+		'editor_script' => 'wp-gpt-social-quote-editor',
+		'editor_style' => 'wp-gpt-social-quote-editor',
+		'style' => 'wp-gpt-social-quote',
+		'render_callback' => 'wp_gpt_social_quote_render_callback', // Add this line
+		'attributes' => array(
+			'quote' => array(
+				'type' => 'string',
+			),
+		),
+	));
 }
 add_action('init', 'wp_gpt_social_quote_register_block');
 
@@ -51,3 +52,16 @@ function wp_gpt_social_quote_enqueue_scripts() {
     );
 }
 add_action('wp_enqueue_scripts', 'wp_gpt_social_quote_enqueue_scripts');
+
+function wp_gpt_social_quote_render_callback($attributes) {
+    if (!isset($attributes['quote'])) {
+        return '';
+    }
+
+    $quote = $attributes['quote'];
+
+    return sprintf(
+        '<blockquote class="wp-gpt-social-quote"><p>%1$s</p></blockquote>',
+        esc_html($quote)
+    );
+}
