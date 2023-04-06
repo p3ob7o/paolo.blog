@@ -26,9 +26,7 @@ function wp_gpt_social_quote_register_block() {
 		'attributes' => array(
 			'quote' => array(
 				'type' => 'string',
-				'source' => 'attribute',
 				'selector' => 'blockquote',
-				'attribute' => 'data-quote',
 			),
 		),
 	));

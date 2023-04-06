@@ -104,9 +104,8 @@ registerBlockType("wp-gpt/social-quote", {
         html: false,
     },
     edit: EditSocialQuote,
-	save: function (props) {
-		var attributes = props.attributes;
-		var quote = attributes.quote;
+	save: function(props) {
+		var quote = props.attributes.quote;
 
 		return wp.element.createElement(
 			'blockquote',
