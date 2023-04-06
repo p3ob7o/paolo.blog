@@ -104,11 +104,13 @@ registerBlockType("wp-gpt/social-quote", {
         html: false,
     },
     edit: EditSocialQuote,
-	save: ({ attributes }) => {
-		return (
-			<div data-quote={attributes.quote}>
-				{/* The content here will be replaced by the render_callback function */}
-			</div>
+	save: function (props) {
+		var quote = props.attributes.quote;
+
+		return wp.element.createElement(
+			'div',
+			{ 'data-quote': quote },
+			// The content here will be replaced by the render_callback function
 		);
 	},
 });
