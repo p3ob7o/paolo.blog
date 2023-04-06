@@ -53,17 +53,12 @@ function wp_gpt_social_quote_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'wp_gpt_social_quote_enqueue_scripts');
 
-function wp_gpt_social_quote_render_callback($attributes, $content) {
-    $dom = new DOMDocument();
-    @$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-    $blockquotes = $dom->getElementsByTagName('blockquote');
-
-    if ($blockquotes->length > 0) {
-        $quote = $blockquotes->item(0)->getAttribute('data-quote');
-        error_log("Quote value: " . $quote); // Added error_log line
-    } else {
+function wp_gpt_social_quote_render_callback($attributes) {
+    if (!isset($attributes['quote'])) {
         return '';
     }
+
+    $quote = $attributes['quote'];
 
     return sprintf(
         '<blockquote class="wp-gpt-social-quote"><p>%1$s</p></blockquote>',
