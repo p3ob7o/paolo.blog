@@ -54,17 +54,20 @@ function wp_gpt_social_quote_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'wp_gpt_social_quote_enqueue_scripts');
 
 function wp_gpt_social_quote_render_callback($attributes) {
-    var_dump($attributes); // Add this line to check the received attributes
+    error_log(print_r($attributes, true)); // Add this line to log the attributes
 
     if (!isset($attributes['quote'])) {
         return '';
     }
 
     $quote = $attributes['quote'];
+    $quote_html = sprintf('<p>%1$s</p>', esc_html($quote));
+    $twitter_button_html = '<div class="wp-gpt-social-quote__button"><a href="https://twitter.com/intent/tweet?text=' . urlencode($quote) . '" target="_blank" rel="noopener noreferrer"><span class="dashicons dashicons-twitter"></span></a></div>';
 
     return sprintf(
-        '<blockquote class="wp-gpt-social-quote"><p>%1$s</p></blockquote>',
-        esc_html($quote)
+        '<blockquote class="wp-gpt-social-quote">%1$s%2$s</blockquote>',
+        $quote_html,
+        $twitter_button_html
     );
 }
 
