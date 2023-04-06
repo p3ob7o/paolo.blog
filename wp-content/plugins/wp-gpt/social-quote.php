@@ -54,6 +54,8 @@ function wp_gpt_social_quote_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'wp_gpt_social_quote_enqueue_scripts');
 
 function wp_gpt_social_quote_render_callback($attributes) {
+    error_log('Rendering the social quote block.');
+
     if (!isset($attributes['quote'])) {
         return '';
     }
