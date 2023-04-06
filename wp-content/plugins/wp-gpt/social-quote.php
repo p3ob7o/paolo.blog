@@ -22,7 +22,7 @@ function wp_gpt_social_quote_register_block() {
 		'editor_script' => 'wp-gpt-social-quote-editor',
 		'editor_style' => 'wp-gpt-social-quote-editor',
 		'style' => 'wp-gpt-social-quote',
-		'render_callback' => 'wp_gpt_social_quote_render_callback', // Add this line
+		'render_callback' => 'wp_gpt_social_quote_render_callback',
 		'attributes' => array(
 			'quote' => array(
 				'type' => 'string',
@@ -67,6 +67,8 @@ function wp_gpt_social_quote_render_callback($attributes, $content) {
     } else {
         $quote = $attributes['quote'];
     }
+
+    error_log('Quote value: ' . $quote); // Added error_log line
 
     return sprintf(
         '<blockquote class="wp-gpt-social-quote"><p>%1$s</p></blockquote>',
