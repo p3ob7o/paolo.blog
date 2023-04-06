@@ -60,14 +60,7 @@ function wp_gpt_social_quote_render_callback($attributes, $content) {
     $blockquotes = $dom->getElementsByTagName('blockquote');
 
     if ($blockquotes->length > 0) {
-        $dataAttributes = $blockquotes->item(0)->getAttribute('data-attributes');
-        $decodedAttributes = json_decode($dataAttributes, true);
-
-        if (isset($decodedAttributes['quote'])) {
-            $quote = $decodedAttributes['quote'];
-        } else {
-            return '';
-        }
+        $quote = $blockquotes->item(0)->getAttribute('data-quote');
     } else {
         return '';
     }
