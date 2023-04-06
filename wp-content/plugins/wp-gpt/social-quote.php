@@ -68,7 +68,7 @@ function wp_gpt_social_quote_render_callback($attributes, $content) {
         $quote = $attributes['quote'];
     }
 
-    error_log('Quote value: ' . $quote); // Added error_log line
+    error_log('Attributes: ' . print_r($attributes, true)); // Added error_log line
 
     return sprintf(
         '<blockquote class="wp-gpt-social-quote"><p>%1$s</p></blockquote>',
@@ -90,4 +90,3 @@ function wp_gpt_social_quote_dynamic_block($block_content, $block) {
 }
 
 add_filter('render_block', 'wp_gpt_social_quote_dynamic_block', 10, 2);
-
