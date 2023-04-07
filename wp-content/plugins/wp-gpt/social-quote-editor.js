@@ -93,9 +93,9 @@ const EditSocialQuote = (props) => {
             templateLock: "all",
         })
     );
-};
+}; 
 
-registerBlockType("wp-gpt/social-quote", {
+registerBlockType("wp-gpt/social-quote", { // Move this outside of EditSocialQuote
     apiVersion: 2,
     title: __("Social Quote", "wp-gpt"),
     description: __("A block to generate and display a social quote from the content.", "wp-gpt"),
@@ -105,7 +105,7 @@ registerBlockType("wp-gpt/social-quote", {
         html: false,
     },
     edit: EditSocialQuote,
-	save: function () {
-	  return createElement(InnerBlocks.Content);
-	},
+    save: function () {
+        return createElement(InnerBlocks.Content);
+    },
 });
