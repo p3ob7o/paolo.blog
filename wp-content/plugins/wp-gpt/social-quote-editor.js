@@ -1,3 +1,12 @@
+const { registerBlockType } = wp.blocks;
+const { __ } = wp.i18n;
+const { InnerBlocks, useBlockProps } = wp.blockEditor;
+const { createElement, useState, useEffect } = wp.element;
+const { TextControl, Button, Spinner } = wp.components;
+const { useSelect } = wp.data;
+const apiFetch = wp.apiFetch || wp.api.apiFetch;
+const { addQueryArgs } = wp.url;
+
 const EditSocialQuote = (props) => {
     const [quote, setQuote] = useState(null);
     const [loading, setLoading] = useState(false);
