@@ -57,7 +57,11 @@ add_action('wp_enqueue_scripts', 'wp_gpt_social_quote_enqueue_scripts');
 
 function wp_gpt_social_quote_render_callback($attributes, $content) {
     $dom = new DOMDocument();
-    @$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+    
+    if (!empty($content)) {
+        @$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+    }
+    
     $blockquotes = $dom->getElementsByTagName('blockquote');
 
     if ($blockquotes->length > 0) {
