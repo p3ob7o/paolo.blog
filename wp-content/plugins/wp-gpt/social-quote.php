@@ -44,7 +44,6 @@ function wp_gpt_social_quote_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'wp_gpt_social_quote_enqueue_scripts');
 
 function wp_gpt_social_quote_render_callback($attributes, $content) {
-    error_log("wp_gpt_social_quote_render_callback called");
     if (!isset($attributes['quote'])) {
         $dom = new DOMDocument();
         @$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
@@ -53,7 +52,7 @@ function wp_gpt_social_quote_render_callback($attributes, $content) {
         if ($blockquotes->length > 0) {
             $quote = $blockquotes->item(0)->getAttribute('data-quote');
         } else {
-            return '';
+            $quote = ''; // Return an empty string instead of an empty block
         }
     } else {
         $quote = $attributes['quote'];
@@ -64,6 +63,7 @@ function wp_gpt_social_quote_render_callback($attributes, $content) {
         esc_html($quote)
     );
 }
+
 
 function wp_gpt_social_quote_dynamic_block($block_content, $block) {
     if ($block['blockName'] === 'wp-gpt/social-quote') {
