@@ -93,7 +93,7 @@ return createElement(
         templateLock: "all",
       })
 );
-}
+};
 
 registerBlockType("wp-gpt/social-quote", {
     apiVersion: 2,
