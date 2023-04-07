@@ -18,19 +18,7 @@ function wp_gpt_social_quote_register_block() {
         array()
     );
 
-	register_block_type('wp-gpt/social-quote', array(
-		'editor_script' => 'wp-gpt-social-quote-editor',
-		'editor_style' => 'wp-gpt-social-quote-editor',
-		'style' => 'wp-gpt-social-quote',
-		'render_callback' => 'wp_gpt_social_quote_render_callback',
-		'attributes' => array(
-			'quote' => array(
-				'type' => 'string',
-				'selector' => 'blockquote',
-			),
-		),
-	));
-}
+	}
 
 add_action('init', 'wp_gpt_social_quote_register_block');
 
@@ -56,14 +44,19 @@ function wp_gpt_social_quote_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'wp_gpt_social_quote_enqueue_scripts');
 
 function wp_gpt_social_quote_render_callback($attributes, $content) {
-    $dom = new DOMDocument();
-    @$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-    $blockquotes = $dom->getElementsByTagName('blockquote');
+    error_log("wp_gpt_social_quote_render_callback called");
+    if (!isset($attributes['quote'])) {
+        $dom = new DOMDocument();
+        @$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+        $blockquotes = $dom->getElementsByTagName('blockquote');
 
-    if ($blockquotes->length > 0) {
-        $quote = $blockquotes->item(0)->getAttribute('data-quote');
+        if ($blockquotes->length > 0) {
+            $quote = $blockquotes->item(0)->getAttribute('data-quote');
+        } else {
+            return '';
+        }
     } else {
-        return '';
+        $quote = $attributes['quote'];
     }
 
     return sprintf(
