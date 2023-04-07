@@ -104,33 +104,37 @@ const EditSocialQuote = (props) => {
 
 registerBlockType("wp-gpt/social-quote", {
   apiVersion: 2,
-  title: __("Social Quote", "wp-gpt"),
-  description: __("A block to generate and display a social quote from the content.", "wp-gpt"),
+    title: __("Social Quote", "wp-gpt"),
+  icon: "twitter",
   category: "widgets",
-  icon: "format-quote",
-  supports: {
-    html: false,
+  attributes: {
+    quote: {
+      type: "string",
+      source: "html",
+      selector: "p",
+    },
   },
+
   edit: EditSocialQuote,
+
   save: function (props) {
     const { quote } = props.attributes;
+
     return createElement(
       "div",
-      null,
-      createElement(InnerBlocks.Content),
-      createElement(Button, {
-        isSecondary: true,
-        onClick: () => {
-          const postId = wp.data.select("core/editor").getCurrentPostId();
-          const response = fetch(`/wp-json/wp/v2/posts/${postId}`);
-          const post = response.json();
-          const permalink = post.link;
-
-          const tweetContent = `${quote}\n${permalink}`;
-          const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
-          window.open(tweetUrl, "_blank");
-        },
-      }, __("Tweet This"))
+      {},
+      quote && createElement("p", {}, quote),
+      quote &&
+        createElement(
+          "a",
+          {
+            href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(quote)}`,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            className: "wp-block-button__link",
+          },
+          __("Tweet This", "wp-gpt")
+        )
     );
   },
 });
