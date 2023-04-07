@@ -55,6 +55,7 @@ const EditSocialQuote = (props) => {
 	  setLoading(false);
 		const assistantMessage = data.choices[0].message.content;
 		setQuote(assistantMessage.trim());
+		props.setAttributes({ quote: assistantMessage.trim() });
 		})
 		.catch((error) => {
 		  console.error('Fetch error:', error);
@@ -77,22 +78,21 @@ const EditSocialQuote = (props) => {
 	  window.open(tweetUrl, '_blank');
 	}
 	
-    return createElement(
-      'div',
-      blockProps,
-      loading ? (
-        createElement(Spinner)
-      ) : (
-        createElement('div', { className: 'wp-gpt-social-quote' }, [
-          createElement('p', {}, quote),
-          createElement(Button, { isSecondary: true, onClick: tweetQuote }, 'Tweet this'),
-        ])
-      )
-    );
-  } catch (error) {
-    console.error('Error in Social Quote block:', error);
-  }
-};
+return createElement(
+  "div",
+  blockProps,
+  loading
+    ? createElement(Spinner)
+    : createElement(InnerBlocks, {
+        template: [
+          [
+            "core/paragraph",
+            { content: quote, placeholder: "Generated quote will appear here..." },
+          ],
+        ],
+        templateLock: "all",
+      })
+);
 
 registerBlockType("wp-gpt/social-quote", {
     apiVersion: 2,
@@ -104,22 +104,7 @@ registerBlockType("wp-gpt/social-quote", {
         html: false,
     },
     edit: EditSocialQuote,
-    save: function(props) {
-        const blockProps = useBlockProps.save();
-        var quote = props.attributes.quote;
-
-        return wp.element.createElement(
-            'blockquote',
-            {
-                ...blockProps,
-                'data-quote': quote,
-                className: 'wp-gpt-social-quote'
-            },
-            wp.element.createElement(
-                'p',
-                null,
-                quote
-            )
-        );
-    },
+	save: function () {
+	  return createElement(InnerBlocks.Content);
+	},
 });
