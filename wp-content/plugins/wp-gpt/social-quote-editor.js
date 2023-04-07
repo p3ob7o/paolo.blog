@@ -78,21 +78,21 @@ const EditSocialQuote = (props) => {
 	  window.open(tweetUrl, '_blank');
 	}
 	
-return createElement(
-  "div",
-  blockProps,
-  loading
-    ? createElement(Spinner)
-    : createElement(InnerBlocks, {
-        template: [
-          [
-            "core/paragraph",
-            { content: quote, placeholder: "Generated quote will appear here..." },
-          ],
-        ],
-        templateLock: "all",
-      })
-);
+    return createElement(
+        "div",
+        blockProps,
+        loading
+        ? createElement(Spinner)
+        : createElement(InnerBlocks, {
+            template: [
+            [
+                "core/paragraph",
+                { content: quote, placeholder: "Generated quote will appear here..." },
+            ],
+            ],
+            templateLock: "all",
+        })
+    );
 };
 
 registerBlockType("wp-gpt/social-quote", {
