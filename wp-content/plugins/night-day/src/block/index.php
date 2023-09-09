@@ -6,9 +6,17 @@ function night_day_register_block() {
         plugins_url( 'assets/js/block.js', dirname( __FILE__, 2 ) ),
         array( 'wp-blocks', 'wp-element', 'wp-editor' ),
         filemtime( plugin_dir_path( __FILE__ ) . '/../assets/js/block.js' ),
-		array( 'type' => 'module' ),  // Specify the script type as module
         true
     );
+
+    // Add the type="module" attribute to the script tag
+    add_filter( 'script_loader_tag', function( $tag, $handle ) {
+        if ( 'night-day-block' !== $handle ) {
+            return $tag;
+        }
+        return str_replace( ' src', ' type="module" src', $tag );
+    }, 10, 2 );
+
 
     // Localize the script with the global styles data
     wp_localize_script('night-day-block', 'nightDayGlobals', array(
