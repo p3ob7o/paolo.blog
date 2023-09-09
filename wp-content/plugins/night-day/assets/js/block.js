@@ -14,7 +14,15 @@ registerBlockType( 'night-day/block', {
         },
         styleOption: {
             type: 'string',
-            default: 'style1',
+            default: '',
+        },
+        globalStyle1: {
+            type: 'string',
+            default: '',
+        },
+        globalStyle2: {
+            type: 'string',
+            default: '',
         },
     },
     edit,
