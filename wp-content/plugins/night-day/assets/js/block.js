@@ -29,3 +29,4 @@ registerBlockType( 'night-day/block', {
     edit,
     save,
 } );
+
