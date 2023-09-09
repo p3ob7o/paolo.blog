@@ -1,0 +1,23 @@
+/**
+ * Light Mode Styles for Dark/Light Mode Toggle Block
+ */
+
+/* The button style in light mode */
+.light-mode .dark-light-mode-toggle {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+/* The button hover style in light mode */
+.light-mode .dark-light-mode-toggle:hover {
+    color: #fff;
+    background-color: #0073aa;
+    border-color: #0073aa;
+}
+
+/* Light mode styles */
+.light-mode {
+    background-color: #fff;
+    color: #333;
+}
