@@ -1,18 +1,15 @@
 <?php
+/**
+ * Plugin Name: Night & Day
+ * Description: A plugin to toggle between two global styles via a WordPress block.
+ * Version: 1.0
+ * Author: Paolo Belcastro
+ */
 
-function night_day_register_block() {
-    wp_register_script(
-        'night-day-block',
-        plugins_url( 'assets/js/block.js', dirname( __FILE__, 2 ) ),
-        array( 'wp-blocks', 'wp-element', 'wp-editor' ),
-        filemtime( plugin_dir_path( __FILE__ ) . '/../assets/js/block.js' ),
-        true
-    );
+defined( 'ABSPATH' ) || exit;
 
-    register_block_type( 'night-day/block', array(
-        'editor_script' => 'night-day-block',
-        'editor_style'  => 'night-day-editor-style',
-        'style'         => 'night-day-style',
-    ) );
-}
-add_action( 'init', 'night_day_register_block' );
+define( 'NIGHT_DAY_DIR_PATH', plugin_dir_path( __FILE__ ) );
+
+// Include necessary files
+require_once NIGHT_DAY_DIR_PATH . 'inc/helper-functions.php';
+require_once NIGHT_DAY_DIR_PATH . 'src/block/index.php';

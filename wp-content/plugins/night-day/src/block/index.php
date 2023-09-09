@@ -1,9 +1,11 @@
+<?php
+
 function night_day_register_block() {
     wp_register_script(
         'night-day-block',
         plugins_url( 'assets/js/block.js', dirname( __FILE__, 2 ) ),
         array( 'wp-blocks', 'wp-element', 'wp-editor' ),
-        filemtime( plugin_dir_path( __FILE__ ) . '../assets/js/block.js' ),
+        filemtime( plugin_dir_path( __FILE__ ) . '/../assets/js/block.js' ),
         true
     );
 
