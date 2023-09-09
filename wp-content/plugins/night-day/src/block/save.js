@@ -7,3 +7,5 @@ export default function Save( { attributes } ) {
         </div>
     );
 }
+
+module.exports = Save;
