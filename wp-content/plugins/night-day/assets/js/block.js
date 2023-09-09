@@ -1,6 +1,7 @@
 import { registerBlockType } from '@wordpress/blocks';
-import edit from './edit';
-import save from './save';
+import edit from '../../src/block/edit';
+import save from '../../src/block/save';
+
 
 registerBlockType( 'night-day/block', {
     title: 'Night & Day Style Toggle',
