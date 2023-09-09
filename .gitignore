@@ -51,3 +51,4 @@ wp-config.php
 wp-content/plugins/.DS_Store
 *.code-workspace
 wp-content/themes/paolodotblog/.DS_Store
+.DS_Store
