@@ -6,9 +6,11 @@ function night_day_register_block() {
         plugins_url( 'assets/js/block.js', dirname( __FILE__, 2 ) ),
         array( 'wp-blocks', 'wp-element', 'wp-editor' ),
         filemtime( plugin_dir_path( __FILE__ ) . '/../assets/js/block.js' ),
-        true,
-		array('type' => 'module')
+        true
     );
+    
+	wp_script_add_data( 'night-day-block', 'type', 'module' );
+
 
     // Localize the script with the global styles data
     wp_localize_script('night-day-block', 'nightDayGlobals', array(
