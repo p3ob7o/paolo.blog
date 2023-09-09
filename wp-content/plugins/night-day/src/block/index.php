@@ -21,14 +21,4 @@ function night_day_register_block() {
     ) );
 }
 
-function night_day_get_global_styles() {
-    // Retrieve the list of global styles. Replace this with your method to get the styles.
-    $global_styles = array(
-        array( 'label' => 'Global Style 1', 'value' => 'global-style1' ),
-        array( 'label' => 'Global Style 2', 'value' => 'global-style2' ),
-    );
-
-    return $global_styles;
-}
-
 add_action( 'init', 'night_day_register_block' );
