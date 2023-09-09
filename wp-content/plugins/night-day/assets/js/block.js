@@ -2,7 +2,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import edit from './edit';
 import save from './save';
 
-registerBlockType( 'night-and-day/block', {
+registerBlockType( 'night-day/block', {
     title: 'Night & Day Style Toggle',
     icon: 'admin-appearance',
     category: 'layout',
