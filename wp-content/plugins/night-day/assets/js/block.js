@@ -1,57 +1,22 @@
-( function( wp ) {
-    var el = wp.element.createElement;
-    var registerBlockType = wp.blocks.registerBlockType;
-    var InspectorControls = wp.editor.InspectorControls;
-    var RadioControl = wp.components.RadioControl;
+import { registerBlockType } from '@wordpress/blocks';
+import edit from './edit';
+import save from './save';
 
-registerBlockType( 'night-day/block', {
+registerBlockType( 'night-and-day/block', {
     title: 'Night & Day Style Toggle',
     icon: 'admin-appearance',
     category: 'layout',
-
-        attributes: {
-            selectedStyle: {
-                type: 'string',
-                default: 'style1'
-            }
+    attributes: {
+        content: {
+            type: 'string',
+            source: 'html',
+            selector: 'p',
         },
-
-        edit: function( props ) {
-            function updateStyle( newStyle ) {
-                props.setAttributes( { selectedStyle: newStyle } );
-            }
-
-            return [
-                el( InspectorControls, {},
-                    el( RadioControl, {
-                        label: 'Select Style',
-                        selected: props.attributes.selectedStyle,
-                        options: [
-                            { label: 'Style 1', value: 'style1' },
-                            { label: 'Style 2', value: 'style2' }
-                        ],
-                        onChange: updateStyle
-                    } )
-                ),
-                el( 'div', { className: props.attributes.selectedStyle },
-                    el( 'button', {
-                        className: 'toggle-button',
-                        onClick: function() {
-                            var currentStyle = props.attributes.selectedStyle;
-                            var newStyle = currentStyle === 'style1' ? 'style2' : 'style1';
-                            props.setAttributes( { selectedStyle: newStyle } );
-                        }
-                    }, 'Toggle Style' )
-                )
-            ];
+        styleOption: {
+            type: 'string',
+            default: 'style1',
         },
-
-        save: function( props ) {
-            return el( 'div', { className: props.attributes.selectedStyle },
-                el( 'button', {
-                    className: 'toggle-button'
-                }, 'Toggle Style' )
-            );
-        }
-    } );
-} )( window.wp );
+    },
+    edit,
+    save,
+} );
