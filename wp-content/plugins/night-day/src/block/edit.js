@@ -55,5 +55,3 @@ export default function Edit( { attributes, setAttributes } ) {
         </div>
     );
 }
-
-module.exports = Edit;

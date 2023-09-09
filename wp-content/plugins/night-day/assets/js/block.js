@@ -1,7 +1,6 @@
-const { registerBlockType } = require('@wordpress/blocks');
-const edit = require('../../src/block/edit');
-const save = require('../../src/block/save');
-
+import { registerBlockType } from '@wordpress/blocks';
+import edit from '../../src/block/edit';
+import save from '../../src/block/save';
 
 
 registerBlockType( 'night-day/block', {
