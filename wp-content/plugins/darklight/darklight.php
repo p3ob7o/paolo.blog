@@ -3,7 +3,7 @@
  * Plugin Name: Dark/Light Mode Toggle
  * Description: This is a Gutenberg block that allows you to toggle between two different global styles, offering a light and a dark mode on your website.
  * Version: 1.0.0
- * Author: Your Name
+ * Author: Paolo Belcastro
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  */
