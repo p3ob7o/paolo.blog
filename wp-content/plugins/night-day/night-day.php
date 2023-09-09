@@ -8,8 +8,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'night-day_DIR_PATH', plugin_dir_path( __FILE__ ) );
+define( 'NIGHT_DAY_DIR_PATH', plugin_dir_path( __FILE__ ) );
 
 // Include necessary files
-require_once night-day_DIR_PATH . 'inc/helper-functions.php';
-require_once night-day_DIR_PATH . 'src/block/index.php';
+require_once NIGHT_DAY_DIR_PATH . 'inc/helper-functions.php';
+require_once NIGHT_DAY_DIR_PATH . 'src/block/index.php';
