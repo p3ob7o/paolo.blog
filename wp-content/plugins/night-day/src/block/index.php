@@ -1,4 +1,4 @@
-function night-day_register_block() {
+function night_day_register_block() {
     wp_register_script(
         'night-day-block',
         plugins_url( 'assets/js/block.js', dirname( __FILE__, 2 ) ),
@@ -13,4 +13,4 @@ function night-day_register_block() {
         'style'         => 'night-day-style',
     ) );
 }
-add_action( 'init', 'night-day_register_block' );
+add_action( 'init', 'night_day_register_block' );
