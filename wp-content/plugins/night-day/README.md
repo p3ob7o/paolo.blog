@@ -1,4 +1,4 @@
-# Your Plugin Name
+# Night & Day
 
 This plugin allows users to toggle between two global styles using a WordPress block. Users can also choose which styles to toggle between within the editor.
 

@@ -4,10 +4,10 @@
     var InspectorControls = wp.editor.InspectorControls;
     var RadioControl = wp.components.RadioControl;
 
-    registerBlockType( 'plugin-name/block', {
-        title: 'Style Toggle Block',
-        icon: 'admin-appearance',
-        category: 'layout',
+registerBlockType( 'night-day/block', {
+    title: 'Night & Day Style Toggle',
+    icon: 'admin-appearance',
+    category: 'layout',
 
         attributes: {
             selectedStyle: {
