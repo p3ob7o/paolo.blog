@@ -47,8 +47,5 @@ wp-config.php
 # uncomment the next line
 #/wp-content/themes
 
-.DS_Store
-wp-content/plugins/.DS_Store
+*.DS_Store
 *.code-workspace
-wp-content/themes/paolodotblog/.DS_Store
-.DS_Store
