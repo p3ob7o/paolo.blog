@@ -51,3 +51,7 @@ wp-config.php
 .DS_Store
 wp-content/.DS_Store
 wp-content/plugins/.DS_Store
+wp-content/plugins/gpt4-image-alt-text/.DS_Store
+wp-content/plugins/wp-gpt/.DS_Store
+wp-content/themes/paolodotblog/.DS_Store
+wp-content/themes/paolodotblog/styles/.DS_Store
