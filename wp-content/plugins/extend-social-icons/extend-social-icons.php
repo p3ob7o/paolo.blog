@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Extend Social Icons Block
- * Description: This plugin extends the Social Icons block to add a missing icon.
+ * Description: This plugin extends the Social Icons block to add the Gravatar icon.
  * Version: 1.0
- * Author: Your Name
- * Author URI: Your Website
+ * Author: Paolo Belcastro
+ * Author URI: https://paolo.blog
  */
 
 function enqueue_block_editor_assets() {
