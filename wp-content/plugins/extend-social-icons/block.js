@@ -17,6 +17,6 @@ addFilter('blocks.registerBlockType', 'my-plugin/extend-social-icons-block', (se
 
     return {
         ...settings,
-        exampleVariations: [...settings.exampleVariations, newIcon],
+        variations: [...settings.variations, newIcon],
     };
 });
