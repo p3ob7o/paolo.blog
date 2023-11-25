@@ -15,6 +15,14 @@ function enqueue_block_editor_assets() {
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
         true
     );
+
+    wp_enqueue_style(
+        'extend-social-icons-block',
+        plugins_url('style.css', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . 'style.css')
+    );
 }
 
 add_action('enqueue_block_editor_assets', 'enqueue_block_editor_assets');
+add_action('wp_enqueue_scripts', 'enqueue_block_editor_assets');
